@@ -42,6 +42,10 @@ public class CarController : MonoBehaviour
     private Rigidbody rb;
     #endregion
 
+    public float oilMultiplier = 1;
+    public bool Oiled;
+    public float oilTimer;
+
     private void Start() {
         if(isPlayer) {
             sphereRB.transform.parent = null;
@@ -72,7 +76,7 @@ public class CarController : MonoBehaviour
 
         if(Nossable) {
             nosSpeed = nosMultiplier;
-            nosTimer -= Time.deltaTime;
+            nosTimer -= Time.fixedDeltaTime;
 
             if(nosTimer <= 0) {
                 nosSpeed = 1;
@@ -80,11 +84,22 @@ public class CarController : MonoBehaviour
                 Nossable = false;
             }
         }
+
+        if(Oiled) {
+            oilMultiplier = 0.2f;
+            oilTimer -= Time.fixedDeltaTime;
+
+            if(oilTimer <= 0) {
+                oilMultiplier = 1f;
+                oilTimer = 1f;
+                Oiled = false;
+            }
+        }
     }
 
     private void FixedUpdate() {
         if(isPlayer) {
-            sphereRB.AddForce(transform.forward * moveInput * nosSpeed, ForceMode.Acceleration);
+            sphereRB.AddForce(transform.forward * moveInput * nosSpeed * oilMultiplier, ForceMode.Acceleration);
         }
         #region AICAR STUFF
         else {
@@ -135,7 +150,7 @@ public class CarController : MonoBehaviour
             }
 
             // Apply the driving force
-            rb.AddForce(transform.forward * maxSpeed * nosSpeed);
+            rb.AddForce(transform.forward * maxSpeed * nosSpeed * oilMultiplier);
 
             // Apply the steering torque
             rb.AddTorque(transform.up * steeringAngle * nosSpeed);
@@ -186,6 +201,10 @@ public class CarController : MonoBehaviour
             Debug.Log("Checkpoint");
             chkpntPrev = chkpntCurr; //pass new checkpoint, current becomes prev
             chkpntCurr = other.GetComponent<Checkpoint>().index; //current is replacedwith new checkpoint index
+        }
+
+        if(other.CompareTag("Oil")) {
+            Oiled = true;
         }
     }
 }

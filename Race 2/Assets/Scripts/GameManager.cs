@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // cars = RaceManager.instance.cars;
         //set playercar bool based on index
         for(int i = 0; i < cars.Count; i++) {
             if(i == carData.carMeshIndex) {
@@ -58,21 +59,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // if(SceneManager.GetActiveScene().name == "GameScene") {
-            Debug.Log(playerCar.currentLap + 1);
-
-            if (playerCar.currentLap >= totalLaps)
-            {
-                // SceneManager.LoadScene("MainMenu");
-                Debug.Log("Player Wins");
-            }
-
-            lapCountText.SetText((playerCar.currentLap + 1).ToString());
-            positionText.SetText(playerCar.racePosition.ToString());
-        // }
+        Debug.Log(playerCar.currentLap + 1);
+        if (playerCar.currentLap >= totalLaps)
+        {
+            SceneManager.LoadScene("WinScene");
+            Debug.Log("Player Wins");
+        }
+        lapCountText.SetText((playerCar.currentLap + 1).ToString());
+        positionText.SetText(playerCar.racePosition.ToString());
 
         if(Input.GetKeyDown(KeyCode.Escape)) {
-            // SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("MainMenuScene");
         }
     }
 }

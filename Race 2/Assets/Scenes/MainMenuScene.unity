@@ -1722,5 +1722,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7175121181708375139, guid: 54587412f234cd24cb7d27dc02c2188b, type: 3}
+      propertyPath: sounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175121181708375139, guid: 54587412f234cd24cb7d27dc02c2188b, type: 3}
+      propertyPath: sounds.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2c1647ba34fdaa040bfc0d972e9e8613, type: 3}
+    - target: {fileID: 7175121181708375139, guid: 54587412f234cd24cb7d27dc02c2188b, type: 3}
+      propertyPath: sounds.Array.data[1].loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175121181708375139, guid: 54587412f234cd24cb7d27dc02c2188b, type: 3}
+      propertyPath: sounds.Array.data[1].name
+      value: Crash
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175121181708375139, guid: 54587412f234cd24cb7d27dc02c2188b, type: 3}
+      propertyPath: sounds.Array.data[1].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175121181708375139, guid: 54587412f234cd24cb7d27dc02c2188b, type: 3}
+      propertyPath: sounds.Array.data[1].volume
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54587412f234cd24cb7d27dc02c2188b, type: 3}

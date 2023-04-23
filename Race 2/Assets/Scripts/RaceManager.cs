@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class RaceManager : MonoBehaviour
     public float lapDistance = 100f; // distance of one lap
     public float maxDistance = 10000f; // maximum distance allowed before lap reset
 
-    public List<CarController> cars; // list of all CarController scripts in the scene
+    private List<CarController> cars; // list of all CarController scripts in the scene
 
 
     // public static RaceManager instance;
@@ -16,17 +17,18 @@ public class RaceManager : MonoBehaviour
     void Start()
     {
         checkpoints = GameManager.instance.checkpoints;
+        cars = GameManager.instance.cars;
 
         // populate the cars list with all CarController scripts in the scene
-        cars = new List<CarController>();
-        foreach (GameObject carObject in GameObject.FindGameObjectsWithTag("Car"))
-        {
-            CarController carController = carObject.GetComponent<CarController>();
-            if (carController != null)
-            {
-                cars.Add(carController);
-            }
-        }
+        // cars = new List<CarController>();
+        // foreach (GameObject carObject in GameObject.FindGameObjectsWithTag("Car"))
+        // {
+        //     CarController carController = carObject.GetComponent<CarController>();
+        //     if (carController != null)
+        //     {
+        //         cars.Add(carController);
+        //     }
+        // }
     }
 
     void Update()
@@ -37,30 +39,10 @@ public class RaceManager : MonoBehaviour
             // calculate the distance from the car to the next checkpoint
             float distanceToNextCheckpoint = Vector3.Distance(cars[i].transform.position, checkpoints[cars[i].chkpntCurr].transform.position);
 
-            // check if the car has passed the current checkpoint
-            if (distanceToNextCheckpoint < 5f)
-            {
-                // cars[i].chkpntCurr++;
-                if (cars[i].chkpntCurr >= checkpoints.Length)
-                {
-                    // cars[i].chkpntCurr = 0;
-                    // cars[i].currentLap++;
-
-                    // check if the car has finished the race
-                    // if (cars[i].currentLap > 3)
-                    // {
-                    //     // TODO: handle finished cars
-                    //     Debug.Log(cars[i] + " has finished!");
-                    //     continue;
-                    // }
-                }
-            }
-
             if (cars[i].currentLap >= 3)
             {
-                // TODO: handle finished cars
-                Debug.Log(cars[i] + " has finished!");
-                // continue;
+                // Debug.Log(cars[i] + " has finished!");
+                SceneManager.LoadScene("LoseScene");
             }
 
             // calculate the distance traveled by the car

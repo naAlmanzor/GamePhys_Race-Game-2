@@ -25,6 +25,11 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene("MainMenuScene");
     }
 
+    public void Retry()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+
     public void QuitGame()
     {
         Application.Quit();

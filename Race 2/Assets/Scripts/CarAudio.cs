@@ -9,7 +9,7 @@ public class CarAudio : MonoBehaviour
     private float currentSpeed;
 
     private Rigidbody carRb;
-    private AudioSource carAudio;
+    public AudioSource carAudio, crashAudio;
 
     public float minPitch;
     public float maxPitch;
@@ -17,7 +17,7 @@ public class CarAudio : MonoBehaviour
 
     void Start()
     {
-        carAudio = GetComponent<AudioSource>();
+        // carAudio = GetComponent<AudioSource>();
         carRb = GetComponent<Rigidbody>();
     }
 
@@ -44,6 +44,17 @@ public class CarAudio : MonoBehaviour
         if(currentSpeed > maxSpeed)
         {
             carAudio.pitch = maxPitch;
+        }
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Obstacle")) {
+            crashAudio.volume = 0.1f;
+
+            if(crashAudio.isPlaying) {
+                crashAudio.Stop();
+            }
+            crashAudio.Play();
         }
     }
 }
